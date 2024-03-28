@@ -35,6 +35,17 @@ class ItemsAV(APIView):
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class ItemscategoryAV(APIView):
+    def get(self,request,category):
+        item = Items.objects.filter(category=category)
+        serializer = ItemsSerializer(item, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+class ItemsSortAV(APIView):
+    def get(self,request):
+        item = Items.objects.all().order_by('-price')
+        serializer = ItemsSerializer(item, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 
 
